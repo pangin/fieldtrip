@@ -1,0 +1,100 @@
+{
+  "$comment": "Machine-readable upstream metadata. Human guide: UPSTREAM.md. Updated by .github/workflows/upstream-sync.yml (sha.fetched/integrated) — never edit sha.pinned.",
+  "repository": "pangin/fieldtrip",
+  "upstream": {
+    "url": "https://github.com/event-catalog/fieldtrip.git",
+    "web": "https://github.com/event-catalog/fieldtrip",
+    "defaultBranch": "main",
+    "relation": "github-fork (public, inside the fork network)"
+  },
+  "branches": {
+    "main": "main",
+    "vendor": "vendor/upstream-main",
+    "syncBranchPrefix": "sync/upstream-"
+  },
+  "sha": {
+    "pinned": "5b26f300ff3791e1e35ca29ce451b23381cfc998",
+    "pinnedAt": "2026-03-13T16:16:10Z",
+    "pinnedTag": null,
+    "fetched": "5b26f300ff3791e1e35ca29ce451b23381cfc998",
+    "fetchedAt": "2026-09-02T05:59:15Z",
+    "integrated": "5b26f300ff3791e1e35ca29ce451b23381cfc998",
+    "integratedAt": "2026-09-02T05:59:15Z"
+  },
+  "owner": {
+    "github": "pangin",
+    "name": "성욱 (pangin)"
+  },
+  "sync": {
+    "cadence": "매주 월요일 00:00 UTC (09:00 KST) 예약 실행 + workflow_dispatch 수동 실행",
+    "workflow": ".github/workflows/upstream-sync.yml",
+    "identity": "deploy key \"upstream-sync\" (secret UPSTREAM_SYNC_SSH_KEY); fallback GITHUB_TOKEN with warning",
+    "mergeStrategy": "merge commit only (squash/rebase disabled at repository level)",
+    "botPushesMain": false
+  },
+  "role": {
+    "classification": "optional",
+    "reason": "스키마 디렉터리를 색인해 필드 검색 UI를 제공하는 독립 CLI(@eventcatalog/fieldtrip). core에 의존하지 않고 core도 이를 사용하지 않는다."
+  },
+  "licenseBoundary": {
+    "root": "MIT",
+    "commercialPaths": [],
+    "productionRestriction": "없음",
+    "licenseKeyEnvVars": [],
+    "ossOnlyPolicy": "해당 없음",
+    "licenseFiles": [
+      "LICENSE"
+    ],
+    "noticeFiles": []
+  },
+  "build": {
+    "node": "20.x",
+    "packageManager": "npm",
+    "lockfiles": [
+      "package-lock.json",
+      "website/package-lock.json"
+    ],
+    "install": "npm ci",
+    "build": "npm run build",
+    "test": "n/a (테스트 스크립트 없음)",
+    "run": "node bin/cli.js --dir <schema dir> --port 3200 --no-open  # http://localhost:3200",
+    "smoke": "샘플 JSON Schema 디렉터리로 기동 후 GET /api/stats → 200 JSON, GET / → 200",
+    "verifyWorkflow": ".github/workflows/fork-verify.yml"
+  },
+  "upstreamWorkflows": [
+    {
+      "file": ".github/workflows/ci.yml",
+      "triggers": "push to main; pull_request targeting main",
+      "guardedToUpstreamRepo": false
+    },
+    {
+      "file": ".github/workflows/release.yml",
+      "triggers": "push to main (concurrency keyed on workflow+ref)",
+      "guardedToUpstreamRepo": false
+    }
+  ],
+  "protection": {
+    "main": [
+      "pull-request-only",
+      "required review 1 (admin bypass for PR merge)",
+      "required checks: Fork Verify jobs",
+      "merge commit only",
+      "no force-push",
+      "no deletion"
+    ],
+    "vendor/upstream-main": [
+      "updates only by sync identity (deploy key)",
+      "no force-push",
+      "no deletion"
+    ],
+    "appliedAt": null,
+    "note": "GitHub rulesets on public repos (Free plan). appliedAt is filled when rulesets are active."
+  },
+  "linear": [
+    "GONG-871",
+    "GONG-872",
+    "GONG-876",
+    "GONG-875"
+  ],
+  "generatedAt": "2026-09-02T05:59:15Z"
+}
