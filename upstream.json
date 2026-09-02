@@ -17,9 +17,9 @@
     "pinnedAt": "2026-03-13T16:16:10Z",
     "pinnedTag": null,
     "fetched": "5b26f300ff3791e1e35ca29ce451b23381cfc998",
-    "fetchedAt": "2026-09-02T05:59:15Z",
+    "fetchedAt": "2026-09-02T06:07:17Z",
     "integrated": "5b26f300ff3791e1e35ca29ce451b23381cfc998",
-    "integratedAt": "2026-09-02T05:59:15Z"
+    "integratedAt": "2026-09-02T06:07:17Z"
   },
   "owner": {
     "github": "pangin",
@@ -42,18 +42,13 @@
     "productionRestriction": "없음",
     "licenseKeyEnvVars": [],
     "ossOnlyPolicy": "해당 없음",
-    "licenseFiles": [
-      "LICENSE"
-    ],
+    "licenseFiles": ["LICENSE"],
     "noticeFiles": []
   },
   "build": {
     "node": "20.x",
     "packageManager": "npm",
-    "lockfiles": [
-      "package-lock.json",
-      "website/package-lock.json"
-    ],
+    "lockfiles": ["package-lock.json", "website/package-lock.json"],
     "install": "npm ci",
     "build": "npm run build",
     "test": "n/a (테스트 스크립트 없음)",
@@ -90,11 +85,6 @@
     "appliedAt": null,
     "note": "GitHub rulesets on public repos (Free plan). appliedAt is filled when rulesets are active."
   },
-  "linear": [
-    "GONG-871",
-    "GONG-872",
-    "GONG-876",
-    "GONG-875"
-  ],
-  "generatedAt": "2026-09-02T05:59:15Z"
+  "linear": ["GONG-871", "GONG-872", "GONG-876", "GONG-875"],
+  "generatedAt": "2026-09-02T06:07:17Z"
 }

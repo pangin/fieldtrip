@@ -2,27 +2,27 @@
 
 이 저장소는 `event-catalog/fieldtrip`의 **GitHub fork**(fork network 내부, public)입니다. 원본 기준선과 내부 수정선을 분리해 추적하며, 기계가 읽는 값은 [upstream.json](./upstream.json)에 있습니다.
 
-| 항목 | 값 |
-|---|---|
-| upstream | https://github.com/event-catalog/fieldtrip (default branch `main`) |
-| fork | https://github.com/pangin/fieldtrip |
-| 관계 | GitHub fork (public). 원본 fork network에 연결되어 있어 GitHub compare/PR UI로 upstream과 비교 가능 |
-| 기준(pinned) SHA | `5b26f300ff3791e1e35ca29ce451b23381cfc998` (2026-03-13T16:16:10Z) |
-| 현재 fetched / integrated SHA | `upstream.json` → `.sha.fetched`, `.sha.integrated` (sync workflow가 갱신) |
-| owner | 성욱 (pangin) |
-| 역할 분류 | **optional** — 스키마 디렉터리를 색인해 필드 검색 UI를 제공하는 독립 CLI(@eventcatalog/fieldtrip). core에 의존하지 않고 core도 이를 사용하지 않는다. |
-| 라이선스(root) | MIT |
-| 동기화 주기 | 매주 월요일 00:00 UTC (09:00 KST) 예약 실행 + workflow_dispatch 수동 실행 |
-| 동기화 identity | deploy key `upstream-sync`(secret `UPSTREAM_SYNC_SSH_KEY`). 미등록 시 GITHUB_TOKEN으로 push하며 경고 출력 |
-| Linear | GONG-871, GONG-872, GONG-876, GONG-875 |
+| 항목                          | 값                                                                                                                                                   |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| upstream                      | https://github.com/event-catalog/fieldtrip (default branch `main`)                                                                                   |
+| fork                          | https://github.com/pangin/fieldtrip                                                                                                                  |
+| 관계                          | GitHub fork (public). 원본 fork network에 연결되어 있어 GitHub compare/PR UI로 upstream과 비교 가능                                                  |
+| 기준(pinned) SHA              | `5b26f300ff3791e1e35ca29ce451b23381cfc998` (2026-03-13T16:16:10Z)                                                                                    |
+| 현재 fetched / integrated SHA | `upstream.json` → `.sha.fetched`, `.sha.integrated` (sync workflow가 갱신)                                                                           |
+| owner                         | 성욱 (pangin)                                                                                                                                        |
+| 역할 분류                     | **optional** — 스키마 디렉터리를 색인해 필드 검색 UI를 제공하는 독립 CLI(@eventcatalog/fieldtrip). core에 의존하지 않고 core도 이를 사용하지 않는다. |
+| 라이선스(root)                | MIT                                                                                                                                                  |
+| 동기화 주기                   | 매주 월요일 00:00 UTC (09:00 KST) 예약 실행 + workflow_dispatch 수동 실행                                                                            |
+| 동기화 identity               | deploy key `upstream-sync`(secret `UPSTREAM_SYNC_SSH_KEY`). 미등록 시 GITHUB_TOKEN으로 push하며 경고 출력                                            |
+| Linear                        | GONG-871, GONG-872, GONG-876, GONG-875                                                                                                               |
 
 ## 브랜치 모델
 
-| 브랜치 | 용도 | 규칙 |
-|---|---|---|
-| `vendor/upstream-main` | upstream `main`의 **exact commit**만 담는 원본 기준선 | 내부 commit·metadata 금지. 사람의 direct push 금지, sync identity만 fast-forward 갱신. force-push·삭제 금지 |
-| `main` | 내부 수정·배포 기준선(default branch) | PR로만 변경, merge commit만 허용(squash/rebase 비활성), force-push·삭제 금지, required check = `Fork Verify` |
-| `sync/upstream-<YYYYMMDD>-<sha12>` | upstream 변경을 `main`에 반영하는 PR 브랜치 | bot이 생성. `main`에는 bot이 직접 push하지 않음 |
+| 브랜치                             | 용도                                                  | 규칙                                                                                                         |
+| ---------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `vendor/upstream-main`             | upstream `main`의 **exact commit**만 담는 원본 기준선 | 내부 commit·metadata 금지. 사람의 direct push 금지, sync identity만 fast-forward 갱신. force-push·삭제 금지  |
+| `main`                             | 내부 수정·배포 기준선(default branch)                 | PR로만 변경, merge commit만 허용(squash/rebase 비활성), force-push·삭제 금지, required check = `Fork Verify` |
+| `sync/upstream-<YYYYMMDD>-<sha12>` | upstream 변경을 `main`에 반영하는 PR 브랜치           | bot이 생성. `main`에는 bot이 직접 push하지 않음                                                              |
 
 Git remote는 GitHub 저장소의 속성이 아니라 **checkout/CI 설정**입니다. 모든 checkout과 CI에서 다음 규칙을 적용합니다.
 
@@ -57,16 +57,16 @@ git merge-base --is-ancestor origin/vendor/upstream-main upstream/main && echo "
 
 ## Clean build / run (runbook)
 
-| 항목 | 값 |
-|---|---|
-| Node | 20.x |
-| package manager | npm (lockfile: package-lock.json, website/package-lock.json) |
-| install | `npm ci` |
-| build | `npm run build` |
-| test | `n/a (테스트 스크립트 없음)` |
-| run | `node bin/cli.js --dir <schema dir> --port 3200 --no-open  # http://localhost:3200` |
-| smoke | 샘플 JSON Schema 디렉터리로 기동 후 GET /api/stats → 200 JSON, GET / → 200 |
-| CI | `.github/workflows/fork-verify.yml` — PR/push(main, vendor/upstream-main)/수동 실행. jobs: metadata, vendor-integrity, build |
+| 항목            | 값                                                                                                                           |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Node            | 20.x                                                                                                                         |
+| package manager | npm (lockfile: package-lock.json, website/package-lock.json)                                                                 |
+| install         | `npm ci`                                                                                                                     |
+| build           | `npm run build`                                                                                                              |
+| test            | `n/a (테스트 스크립트 없음)`                                                                                                 |
+| run             | `node bin/cli.js --dir <schema dir> --port 3200 --no-open  # http://localhost:3200`                                          |
+| smoke           | 샘플 JSON Schema 디렉터리로 기동 후 GET /api/stats → 200 JSON, GET / → 200                                                   |
+| CI              | `.github/workflows/fork-verify.yml` — PR/push(main, vendor/upstream-main)/수동 실행. jobs: metadata, vendor-integrity, build |
 
 license key와 `.env` 없이(OSS-only) 실행합니다. 해당 없음
 
